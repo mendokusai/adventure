@@ -7,17 +7,11 @@ defmodule Adventure.BaseText do
 
   def compile(tuple_list) do
     Enum.map(tuple_list, fn({term, link}) ->
-      cond do
-        link ->
-          t1 = fanfic({term, link})
-          t2 = wiki({term, link})
-          t1 <> " " <> t2
-          # spawn(Adventure.BaseText, :fanfic, [{term, link}])
-          # spawn(Adventure.BaseText, :wiki, [{term, link}])
-        true -> fanfic({term, link})
-          # spawn(Adventure.BaseText, :fanfic, [{term, link}])
-          # spawn(Adventure.BaseText, :wiki, [{term, link}])
-      end
+      {:ok, res1} = Task.async(fn -> Adventure.BaseText.fanfic({term, link}) end)
+        |> Task.yield
+      {:ok, res2} = Task.async(fn ->Adventure.BaseText.wiki({term, link}) end)
+        |> Task.yield
+      res1 <> " " <> res2
     end) |> Enum.join(" ")
   end
 

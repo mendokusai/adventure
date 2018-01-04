@@ -41,7 +41,6 @@ defmodule Adventure.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:faust, "~> 0.1.0"},
       {:httpoison, "~> 0.13"},
       {:json, "~> 1.0"},
       {:floki, "~> 0.19.0"},

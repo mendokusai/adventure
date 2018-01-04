@@ -1,0 +1,6 @@
+<div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}!", name: "Adventure" %></h2>
+  <p class="lead">A self generating Choose your own adventure<br />Choose your path, choose your doom, choose wisely!</p>
+</div>
+
+<%= render "adventure_form.html", conn: @conn %>
