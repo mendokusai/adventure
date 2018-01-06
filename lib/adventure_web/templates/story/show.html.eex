@@ -8,5 +8,5 @@
 </ol>
 
 <div class="content">
-  <p><%= @story.source_text %></p>
+  <p><%= @text %></p>
 </div>

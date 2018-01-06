@@ -2,17 +2,26 @@ defmodule Adventure.Markov.Chain do
   alias Adventure.Markov.Model
   alias Adventure.Markov.Gin
 
-  def start(source) do
-    process_source(source)
-    # System.halt(0) # interesting. kills the whole thing.
+  def start(source_text) do
+    {:ok, model} = Model.start_link
+    Model.populate(model, source_text) # populate markov model with text
   end
 
-  defp process_source(text) do
-    {:ok, model} = Model.start_link
-    model = Model.populate(model, text) # populate markov model with text
-    # generate 10 random lines from text source
-    Enum.each(1..10, fn(_) ->
-      model |> Gin.create_sentence |> IO.puts
+  def paragraph(model, length \\ paragraph_length) do
+    Enum.map(1..length, fn(_) ->
+      model
+      |> Gin.create_sentence
     end)
+    |> Enum.join(" ")
   end
+
+  def page(model) do
+    Enum.map(1..paragraph_number(), fn(_) ->
+      paragraph(model)
+    end)
+    |> Enum.join("\n")
+  end
+
+  defp paragraph_length(), do: Enum.random(5..25)
+  defp paragraph_number(), do: Enum.random(3..5)
 end

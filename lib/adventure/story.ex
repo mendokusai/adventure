@@ -8,7 +8,7 @@ defmodule Adventure.Story do
   Adventure.Story %{
     search_request: "I like ponies",    # Original request string
     source_text: "<big lot of text">,   # Result from Adventure.BaseText.compile
-    terms: [{"<keyword>", <TYPE>}...]   # Result from Adventure.Language.get_terms
+    terms: ["<keyword>",...]   # Result from Adventure.Language.get_terms, reduced to just terms
   }
   """
   schema "story" do

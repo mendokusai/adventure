@@ -23,6 +23,8 @@ defmodule AdventureWeb.StoryController do
 
   def show(conn, %{"id" => story_id} = params) do
     story = Adventure.Repo.get(Adventure.Story, story_id)
-    render conn, "show.html", story: story
+    page_text = Adventure.Markov.Chain.start(story.source_text)
+    |> Adventure.Markov.Chain.page
+    render conn, "show.html", story: story, text: page_text
   end
 end
