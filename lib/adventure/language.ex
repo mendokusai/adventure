@@ -40,6 +40,10 @@ defmodule Adventure.Language do
     |> terms_list
   end
 
+  def save_terms(tuple_list) do
+    Enum.map(tuple_list, fn({keyword, _}) -> keyword end)
+  end
+
   defp terms_list(tuple) do
     {:ok, map} = tuple
     Enum.map(map["entities"], fn(entry) ->

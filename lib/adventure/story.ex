@@ -14,17 +14,16 @@ defmodule Adventure.Story do
   schema "story" do
     field :search_request, :string
     field :source_text, :string # text for making markov chains
+    field :terms, {:array, :string} # this is a list, processed from search_request
 
     timestamps()
-    # I'm pulling this out, because this shit (and me) cannot sort out array data.
-    # field :terms, {:array, :string} # this is a list, processed from search_request
   end
 
-  @required_fields [:search_request, :source_text]
+  @required_fields [:search_request, :source_text, :terms]
 
   def changeset(%Adventure.Story{} = story, params) do
     story
     |> cast(params, @required_fields)
-    # |> validate_required([:search_request, :source_text])
+    |> validate_required([:search_request, :source_text, :terms])
   end
 end

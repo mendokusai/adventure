@@ -17,8 +17,7 @@ defmodule AdventureWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/begin", StoryController, :index
-    post "/begin/:id", StoryController, :show
+    resources "/begin", StoryController
   end
 
   # Other scopes may use custom stacks.
