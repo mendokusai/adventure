@@ -1,0 +1,12 @@
+
+<h1><%= @story.search_request %></h1>
+
+<ol>
+<%= Enum.map(@story.terms, fn(term) -> %>
+  <li><%= term %></li>
+<% end) %>
+</ol>
+
+<div class="content">
+  <p><%= @text %></p>
+</div>

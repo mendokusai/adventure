@@ -6,26 +6,24 @@ defmodule Adventure.Story do
   The goal of this is to encapuslate information for a story,
   so key terms, markov chain details.
   Adventure.Story %{
-    search_request: "I like ponies",
-    terms: [{"<keyword>", <TYPE>}...],
-    sites_visited: []
+    search_request: "I like ponies",    # Original request string
+    source_text: "<big lot of text">,   # Result from Adventure.BaseText.compile
+    terms: ["<keyword>",...]   # Result from Adventure.Language.get_terms, reduced to just terms
   }
-
-  TYPES: [
-    UNKNOWN, PERSON, LOCATION, ORGANIZATION,
-    EVENT, WORK_OF_ART, CONSUMER_GOOD, OTHER
-  ]
   """
-  embedded_schema do
+  schema "story" do
     field :search_request, :string
-    embeds_many :terms, Adventure.Terms
+    field :source_text, :string # text for making markov chains
+    field :terms, {:array, :string} # this is a list, processed from search_request
+
+    timestamps()
   end
 
-  @allowed_attributes [:search_request]
+  @required_fields [:search_request, :source_text, :terms]
 
-  def changeset(params) do
-    %__MODULE__{}
-    |> cast(params, @allowed_attributes)
-    |> cast_embed(:terms)
+  def changeset(%Adventure.Story{} = story, params) do
+    story
+    |> cast(params, @required_fields)
+    |> validate_required([:search_request, :source_text, :terms])
   end
 end

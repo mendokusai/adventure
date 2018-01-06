@@ -6,19 +6,24 @@ defmodule Adventure.BaseText do
   @fanfic_base "https://www.fanfiction.net"
 
   def compile(tuple_list) do
-    Enum.map(tuple_list, fn({term, link}) ->
-      cond do
-        link ->
-          t1 = fanfic({term, link})
-          t2 = wiki({term, link})
-          t1 <> " " <> t2
-          # spawn(Adventure.BaseText, :fanfic, [{term, link}])
-          # spawn(Adventure.BaseText, :wiki, [{term, link}])
-        true -> fanfic({term, link})
-          # spawn(Adventure.BaseText, :fanfic, [{term, link}])
-          # spawn(Adventure.BaseText, :wiki, [{term, link}])
-      end
-    end) |> Enum.join(" ")
+    # create tasks for all the scrapings
+    tasks = Enum.map(tuple_list, fn({term, link}) ->
+      [
+        Task.async(fn -> Adventure.BaseText.fanfic({term, link}) end),
+        Task.async(fn -> Adventure.BaseText.wiki({term, link}) end)
+      ]
+    end)
+    |> List.flatten
+
+    results = Task.yield_many(tasks, 5000)
+    |> Enum.map(fn {task, res} ->
+      # this removes all borked tasks
+      res || Task.shutdown(task, :brutal_kill)
+    end)
+    # get them results!
+    for {:ok, text} <- results do
+      text
+    end |> Enum.join(" ")
   end
 
   def wiki(tuple) do

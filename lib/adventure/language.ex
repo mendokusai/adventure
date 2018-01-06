@@ -3,8 +3,18 @@ defmodule Adventure.Language do
   Parses input string into json and builds request for Google Language API
   https://cloud.google.com/natural-language/docs/reference/rest/v1/documents
 
-  Set up as two parts to test `build_json` and then `make_request` separately.
-  I'm unsure if `decode_response` is necessary here
+  Goal is to process a user string through the google API to break it down into parts.
+  special types (below) will come with a wikipedia link,
+  which we pass in to a tuple response if possible.
+
+  The function `get_terms` prepares a tuple list to be fed into `Adventure.BaseText.compile`.
+  `build_json` and `make_request` were set up separately for testing.
+
+  Types from Google:
+  TYPES: [
+    UNKNOWN, PERSON, LOCATION, ORGANIZATION,
+    EVENT, WORK_OF_ART, CONSUMER_GOOD, OTHER
+  ]
   """
   @api_key System.get_env("GOOGLE_LANGUAGE_API")
   @headers [{"Content-Type", "application/json"}, {"Accept", "application/json"}]
@@ -28,6 +38,10 @@ defmodule Adventure.Language do
     body
     |> JSON.decode
     |> terms_list
+  end
+
+  def save_terms(tuple_list) do
+    Enum.map(tuple_list, fn({keyword, _}) -> keyword end)
   end
 
   defp terms_list(tuple) do
