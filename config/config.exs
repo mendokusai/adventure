@@ -17,9 +17,6 @@ config :adventure, AdventureWeb.Endpoint,
   pubsub: [name: Adventure.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
-# Configures floki
-# https://github.com/philss/floki
-config :floki, :html_parser, Floki.HTMLParser.Html5ever
 
 # Configures Elixir's Logger
 config :logger, :console,
