@@ -19,3 +19,7 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+import { StoryText } from "./story_page"
+export const App = {
+    type_out: StoryText.type_out
+}

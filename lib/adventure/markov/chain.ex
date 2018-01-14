@@ -19,7 +19,8 @@ defmodule Adventure.Markov.Chain do
     Enum.map(1..paragraph_number(), fn(_) ->
       paragraph(model)
     end)
-    |> Enum.join("\n")
+    # |> Enum.join("\n")
+    |> List.flatten
   end
 
   defp paragraph_length(), do: Enum.random(5..25)

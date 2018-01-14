@@ -1,12 +1,21 @@
-
 <h1><%= @story.search_request %></h1>
 
-<ol>
-<%= Enum.map(@story.terms, fn(term) -> %>
-  <li><%= term %></li>
-<% end) %>
-</ol>
+<!-- <ol>
+<%#= Enum.map(@story.terms, fn(term) -> %>
+  <li><%#= term %></li>
+<%# end) %>
+</ol> -->
 
-<div class="content">
-  <p><%= @text %></p>
+<div class="brunch-dat-ish">
 </div>
+
+<!-- <div class="content">
+  <%#= Enum.map(@text, fn(line) -> %>
+    <p><%#= line %></p>
+  <%# end) %>
+</div> -->
+
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+<script>
+  require("js/app").App.type_out("<%= @text %>");
+</script>

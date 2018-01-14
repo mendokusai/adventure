@@ -23,7 +23,10 @@ defmodule AdventureWeb.StoryController do
 
   def show(conn, %{"id" => story_id} = params) do
     story = Adventure.Repo.get(Adventure.Story, story_id)
-    page_text = Adventure.Markov.Chain.start(story.source_text)
+    # temporary patch, fix base-text
+    #
+    text = Regex.replace(~r/[\(\d{4}\)|\^]/, story.source_text, "")
+    page_text = Adventure.Markov.Chain.start(text)
     |> Adventure.Markov.Chain.page
     render conn, "show.html", story: story, text: page_text
   end
