@@ -1,12 +1,10 @@
 
-<h1><%= @story.search_request %></h1>
+<h1><%= List.first(@text) %></h1>
 
-<ol>
-<%= Enum.map(@story.terms, fn(term) -> %>
-  <li><%= term %></li>
-<% end) %>
-</ol>
-
-<div class="content">
-  <p><%= @text %></p>
+<div class="brunch-dat-ish">
 </div>
+
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+<script>
+  require('js/app.js').App.type_text(`<%= @text %>`)
+</script>
