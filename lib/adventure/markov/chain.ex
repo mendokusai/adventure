@@ -4,6 +4,7 @@ defmodule Adventure.Markov.Chain do
 
   def start(source_text) do
     {:ok, model} = Model.start_link
+
     Model.populate(model, source_text) # populate markov model with text
   end
 
@@ -12,7 +13,6 @@ defmodule Adventure.Markov.Chain do
       model
       |> Gin.create_sentence
     end)
-    |> Enum.join(" ")
   end
 
   def page(model) do
@@ -20,8 +20,14 @@ defmodule Adventure.Markov.Chain do
       paragraph(model)
     end)
     |> Enum.join("\n")
+    |> remove_glyphs
+    |> handle_space
+    |> String.split(".")
+    |> Enum.map(fn(line) -> line <> "." end)
   end
 
+  defp remove_glyphs(text), do: Regex.replace(~r/\(\d{4}\)|\^|\(|\)/, text, "")
+  defp handle_space(text), do: Regex.replace(~r/\;|\W{2+}/, text, " ")
   defp paragraph_length(), do: Enum.random(5..25)
   defp paragraph_number(), do: Enum.random(3..5)
 end
