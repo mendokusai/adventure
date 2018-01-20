@@ -8,8 +8,7 @@
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "jquery": "file:./node_modules/jquery",
-    "typed.js": "file:./node_modules/typed.js"
+    "typed.js": "~2.0.6"
   },
   "devDependencies": {
     "babel-brunch": "6.1.1",
