@@ -54,7 +54,7 @@ defmodule Adventure.Markov.Model do
   defp tokenize(text) do
     text
     |> String.downcase
-    |> String.split(~r{\n}, trim: true)
+    |> String.split(~r{\.}, trim: true)
     |> Enum.map(&String.split/1)
   end
 end

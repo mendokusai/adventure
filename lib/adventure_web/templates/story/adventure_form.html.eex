@@ -1,12 +1,13 @@
 <div class="adventure-form">
   <%= form_for @conn,
     story_path(@conn, :create),
-    [method: :post, as: :story, class: "form-inline"],
+    [method: :post, as: :story, class: "form-group"],
     fn f -> %>
   <label for="input"></label>
-  <div class="input-group">
-    <%= text_input f, :text_input, placeholder: "What adventure do you want?", default: "", class: "form-control" %>
-    <span class="input-group-btn"><%= submit "Generate", class: "btn btn-primary"%></span>
+  <div class="input-group input-group-lg">
+    <%= text_input f, :text_input, placeholder: "What adventure do you want?", default: "", class: "form-control", id: "typed4" %>
+    <span class="input-group-btn"><%= submit "begin", class: "btn btn-primary"%></span>
   </div>
+
   <% end %>
 </div>

@@ -19,9 +19,11 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import { StoryText } from "./story_page";
+import { PlaceHolder } from "./story_index";
+import { StoryText } from "./story_typeit";
 import Typed from 'typed.js';
 
 export var App = {
-  type_text: StoryText.typed
+  typeit: StoryText.type,
+  placeholder: PlaceHolder.type
 };

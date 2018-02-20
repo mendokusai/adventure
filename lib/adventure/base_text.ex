@@ -1,4 +1,5 @@
 defmodule Adventure.BaseText do
+  alias Adventure.Removals
   @moduledoc """
   Gets and parses base text for given keywords.
   """
@@ -31,10 +32,10 @@ defmodule Adventure.BaseText do
     {:ok, response} = cond do
       wiki_url -> HTTPoison.get(wiki_url)
       true ->
-        term = keyword
+        searchable_keyword = keyword
           |> capitalize_parts
           |> prep_term("_")
-        HTTPoison.get(@wikipedia_base <> term)
+        HTTPoison.get(@wikipedia_base <> searchable_keyword)
     end
 
     case response.status_code do
@@ -44,7 +45,7 @@ defmodule Adventure.BaseText do
         # getting far too much wiki text.
 
           |> Floki.text
-          |> remove_footnotes
+          |> Removals.check
       _  -> []
     end
   end
@@ -67,6 +68,7 @@ defmodule Adventure.BaseText do
         story_response.body
           |> Floki.find(".storytext")
           |> Floki.text
+          |> Removals.check
       true -> []
     end
   end
@@ -77,6 +79,5 @@ defmodule Adventure.BaseText do
       |> Enum.join(" ")
   end
 
-  defp remove_footnotes(text), do: Regex.replace(~r{(\[\d+\])}, text, "")
   defp prep_term(keyword, spacer), do: Regex.replace(~r{\s}, keyword, spacer)
 end

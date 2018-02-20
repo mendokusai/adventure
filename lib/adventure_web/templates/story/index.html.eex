@@ -1,6 +1,27 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Adventure" %></h2>
-  <p class="lead">A self generating Choose your own adventure<br />Choose your path, choose your doom, choose wisely!</p>
+<div class="container">
+  <div class="subhead">
+    <h2>
+      YOU'RE THE STAR OF THE STORY!<br>
+      CHOOSE FROM A NUMBER OF RANDOM ENDINGS.
+    </h2>
+  </div>
+  <hr>
+  <h1>CHOOSE DAT <br>ADVENTURE</h1>
+  <hr>
+  <div class="adventure-time-img">
+  </div>
+</div>
+<div class="container">
+  <%= render "adventure_form.html", conn: @conn %>
 </div>
 
-<%= render "adventure_form.html", conn: @conn %>
+<div class="container adventure-form">
+  <p class="lead">
+    A self generating Choose your own adventure<br>
+    Choose your path, choose your doom, choose wisely!</p>
+</div>
+
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+<script>
+  require('js/app.js').App.placeholder()
+</script>

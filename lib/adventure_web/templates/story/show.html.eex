@@ -1,10 +1,12 @@
+<h2><%= @story.search_request %></h2>
 
-<h1><%= List.first(@text) %></h1>
+<div class="adventure-story">
+  <p class="type-text"></p>
+</div>
 
-<div class="brunch-dat-ish">
+<div class="adventure-story">
+  <%= @text %>
 </div>
 
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-<script>
-  require('js/app.js').App.type_text(`<%= @text %>`)
-</script>
+<script>require('js/app.js').App.typeit(`<%= @text %>`);</script>
