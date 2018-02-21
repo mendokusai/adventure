@@ -21,22 +21,23 @@ defmodule Adventure.Language do
   @url "https://language.googleapis.com/v1/documents:analyzeEntities?key=#{@api_key}"
 
   def get_terms(string) do
-    {:ok, json} = build_json(string)
-    {:ok, response} = make_request(json)
+    response = build_json(string)
+      |> make_request
     decode_response(response.body)
+      |> result_or_original(string)
   end
 
   def build_json(string) do
     string
     |> body_args
-    |> JSON.encode
+    |> JSON.encode!
   end
 
-  def make_request(body_json), do: HTTPoison.post(@url, body_json, @headers)
+  def make_request(body_json), do: HTTPoison.post!(@url, body_json, @headers)
 
   def decode_response(body) do
     body
-    |> JSON.decode
+    |> JSON.decode!
     |> terms_list
   end
 
@@ -44,12 +45,14 @@ defmodule Adventure.Language do
     Enum.map(tuple_list, fn({keyword, _}) -> keyword end)
   end
 
-  defp terms_list(tuple) do
-    {:ok, map} = tuple
-    Enum.map(map["entities"], fn(entry) ->
+  defp terms_list(response_map) do
+    Enum.map(response_map["entities"], fn(entry) ->
       {entry["name"], entry["metadata"]["wikipedia_url"]}
     end)
   end
+
+  defp result_or_original([], original_string), do: [{original_string, nil}]
+  defp result_or_original(result_map, _original_string), do: result_map
 
   defp body_args(string) do
     [

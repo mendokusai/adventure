@@ -36,6 +36,11 @@ header {
   margin-right: auto;
 }
 
+.story-img-art {
+  display: block;
+  margin: 0 auto;
+}
+
 .adventure-form {
   width: 95%;
   text-align: center;

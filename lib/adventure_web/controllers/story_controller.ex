@@ -13,7 +13,8 @@ defmodule AdventureWeb.StoryController do
         %{
           search_request: request,
           source_text: Adventure.BaseText.compile(terms),
-          terms: Adventure.Language.save_terms(terms)
+          terms: Adventure.Language.save_terms(terms),
+          images: Adventure.Art.compile_art(terms)
         }
       )
       |> Adventure.Repo.insert!
@@ -31,7 +32,7 @@ defmodule AdventureWeb.StoryController do
     story = Adventure.Repo.get(Adventure.Story, story_id)
     page_text = Adventure.Markov.Chain.start(story.source_text)
       |> Adventure.Markov.Chain.page
-
-    render conn, "show.html", story: story, text: page_text
+    image = Adventure.Story.choose_image(story.images)
+    render conn, "show.html", story: story, text: page_text, image: image
   end
 end

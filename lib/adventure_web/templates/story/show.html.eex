@@ -1,4 +1,8 @@
-<h2><%= @story.search_request %></h2>
+<div class="story-img">
+  <img class="story-img-art" src="<%= @image %>" alt="<%= @story.search_request %>">
+</div>
+
+<h2 style="color:black"><%= @story.search_request %></h2>
 
 <div class="adventure-story">
   <p class="type-text"></p>
