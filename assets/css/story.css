@@ -44,6 +44,7 @@ header {
 .adventure-form {
   width: 95%;
   text-align: center;
+  height: 300px;
 }
 
 .alert {

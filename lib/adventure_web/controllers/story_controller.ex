@@ -8,24 +8,33 @@ defmodule AdventureWeb.StoryController do
   def create(conn, %{"story" => %{"text_input" => request}}) when request != "" do
     terms = Adventure.Language.get_terms(request)
 
-    story = %Adventure.Story{}
-      |> Adventure.Story.changeset(
-        %{
-          search_request: request,
-          source_text: Adventure.BaseText.compile(terms),
-          terms: Adventure.Language.save_terms(terms),
-          images: Adventure.Art.compile_art(terms)
-        }
-      )
-      |> Adventure.Repo.insert!
+    case terms do
+      terms ->
+        story = %Adventure.Story{}
+          |> Adventure.Story.changeset(
+            %{
+              search_request: request,
+              source_text: Adventure.BaseText.compile(terms),
+              terms: Adventure.Language.save_terms(terms),
+              images: Adventure.Art.compile_art(terms)
+            }
+          )
 
-    redirect conn, to: "/begin/#{story.id}"
+        if story.valid? do
+          Adventure.Repo.insert!(story)
+          redirect conn, to: "/begin/#{story.id}"
+        else
+          render_index(conn, "Couldn't generate a story, for your request.")
+        end
+
+      _ -> conn
+        message = "Amazing idea, but '#{request}' is harder than it looks."
+        render_index(conn, message)
+    end
   end
 
   def create(conn, _params) do
-    conn
-    |> put_flash(:error, "Please enter some text to get started.")
-    |> render("index.html")
+    render_index(conn, "Please enter some text to get started.")
   end
 
   def show(conn, %{"id" => story_id} = params) do
@@ -34,5 +43,11 @@ defmodule AdventureWeb.StoryController do
       |> Adventure.Markov.Chain.page
     image = Adventure.Story.choose_image(story.images)
     render conn, "show.html", story: story, text: page_text, image: image
+  end
+
+  defp render_index(conn, message \\ "Something weird happened") do
+    conn
+    |> put_flash(:error, message)
+    |> render("index.html")
   end
 end
