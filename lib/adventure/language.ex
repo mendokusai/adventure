@@ -23,7 +23,7 @@ defmodule Adventure.Language do
   def get_terms(string) do
     response = build_json(string)
       |> make_request
-    decode_response(response.body)
+    decode_response(response, string)
       |> result_or_original(string)
   end
 
@@ -33,13 +33,15 @@ defmodule Adventure.Language do
     |> JSON.encode!
   end
 
-  def make_request(body_json), do: HTTPoison.post!(@url, body_json, @headers)
+  def make_request(body_json), do: HTTPoison.post(@url, body_json, @headers)
 
-  def decode_response(body) do
-    body
+  def decode_response({:ok, response}, _string) do
+    response.body
     |> JSON.decode!
     |> terms_list
   end
+
+  def decode_response({code, _response}, string) when code != :ok ,do: [{string, nil}]
 
   def save_terms(tuple_list) do
     Enum.map(tuple_list, fn({keyword, _}) -> keyword end)
