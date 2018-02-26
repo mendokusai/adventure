@@ -16,7 +16,9 @@
     <div class="container main">
       <header class="header">
         <span class="banner">
-          <h3>CHOOSE DAT ADVENTURE #<%= Enum.random(1..200) %></h3>
+          <a class="app-link" href="https://choose-dat-adventure.herokuapp.com/begin">
+            <h3>CHOOSE DAT ADVENTURE #<%= Enum.random(1..200) %></h3>
+          </a>
         </span>
       </header>
 

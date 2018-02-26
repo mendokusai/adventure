@@ -24,7 +24,6 @@ defmodule Adventure.Language do
     response = build_json(string)
       |> make_request
     decode_response(response, string)
-      |> result_or_original(string)
   end
 
   def build_json(string) do
@@ -35,10 +34,11 @@ defmodule Adventure.Language do
 
   def make_request(body_json), do: HTTPoison.post(@url, body_json, @headers)
 
-  def decode_response({:ok, response}, _string) do
+  def decode_response({:ok, response}, string) do
     response.body
     |> JSON.decode!
     |> terms_list
+    |> result_or_original(string)
   end
 
   def decode_response({code, _response}, string) when code != :ok ,do: [{string, nil}]

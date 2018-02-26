@@ -36,6 +36,15 @@ header {
   margin-right: auto;
 }
 
+.app-link {
+  color: white;
+}
+
+.app-link:hover {
+  color: pink;
+  text-decoration: none;
+}
+
 .story-img-art {
   display: block;
   margin: 0 auto;

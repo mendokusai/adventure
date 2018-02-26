@@ -21,8 +21,8 @@ defmodule AdventureWeb.StoryController do
           )
 
         if story.valid? do
-          Adventure.Repo.insert!(story)
-          redirect conn, to: "/begin/#{story.id}"
+          {:ok, record} = Adventure.Repo.insert(story)
+          redirect(conn, to: "/begin/#{record.id}")
         else
           render_index(conn, "Couldn't generate a story, for your request.")
         end
