@@ -53,6 +53,8 @@ defmodule Adventure.Language do
     end)
   end
 
+  defp terms_list([]), do: []
+
   defp result_or_original([], original_string), do: [{original_string, nil}]
   defp result_or_original(result_map, _original_string), do: result_map
 
