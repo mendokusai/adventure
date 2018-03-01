@@ -5,8 +5,8 @@
     fn f -> %>
   <label for="input"></label>
   <div class="input-group input-group-lg">
-    <%= text_input f, :text_input, placeholder: "What adventure do you want?", default: "", class: "form-control", id: "typed4" %>
-    <span class="input-group-btn"><%= submit "begin", class: "btn btn-primary"%></span>
+    <%= text_input f, :text_input, placeholder: "What adventure do you want?", default: "", class: "form-control adventure-input", id: "typed4" %>
+    <span class="input-group-btn trigger"><%= submit "begin", class: "btn btn-primary"%></span>
   </div>
 
   <% end %>

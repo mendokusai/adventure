@@ -21,9 +21,11 @@ import "phoenix_html"
 // import socket from "./socket"
 import { PlaceHolder } from "./story_index";
 import { StoryText } from "./story_typeit";
+import { Load } from "./spinner";
 import Typed from 'typed.js';
 
 export var App = {
   typeit: StoryText.type,
-  placeholder: PlaceHolder.type
+  placeholder: PlaceHolder.type,
+  load: Load.spinner
 };

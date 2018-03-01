@@ -45,6 +45,10 @@ defmodule AdventureWeb.StoryController do
     render conn, "show.html", story: story, text: page_text, image: image
   end
 
+  def show(conn, _params) do
+    render_index(conn)
+  end
+
   defp render_index(conn, message \\ "Something weird happened") do
     conn
     |> put_flash(:error, message)

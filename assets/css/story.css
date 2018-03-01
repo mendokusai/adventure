@@ -53,7 +53,11 @@ header {
 .adventure-form {
   width: 95%;
   text-align: center;
-  height: 300px;
+}
+
+#adventure-spinner {
+  text-align: center;
+  padding-right: 40px;
 }
 
 .alert {
@@ -78,6 +82,12 @@ hr {
   width: 100%;
   height: 1px;
   background: #000;
+}
+
+.adventure-story p {
+  font-family: 'Abhaya Libre', serif;
+  text-indent: 10px;
+  font-size: 20px;
 }
 
 /* v1
@@ -126,9 +136,4 @@ h2 {
   padding: 30px;
   border: 2px solid #dfb300;
   border-radius: 3px;
-}
-
-.adventure-story p {
-  font-family: 'Abhaya Libre', serif;
-  text-indent: 10px;
 } */

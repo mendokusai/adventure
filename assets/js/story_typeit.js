@@ -3,9 +3,11 @@ import TypeIt from 'typeit';
 export var StoryText = {
   type: (strings) => {
     let typer = new TypeIt('.type-text', {
-      speed: 100,
+      typeSpeed: 0,
       breakLines: true,
-      lifeLike: true
+      lifeLike: true,
+      typeDelay: 3000,
+      fadeIn: true
     });
     // type(strings);
     const lines = strings.split(". ");

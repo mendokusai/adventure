@@ -31,7 +31,7 @@ defmodule Adventure.Art do
       |> viable_thumbnails
       |> Enum.filter(&is_bitstring(&1))
       |> correct_url_length
-      |> Enum.map(&enlarge_image(&1))
+      |> enlarge_image()
   end
 
   def get_token() do
@@ -60,7 +60,8 @@ defmodule Adventure.Art do
     end)
   end
 
-  defp enlarge_image(url), do: Regex.replace(~r{square}, url, "large")
+  defp enlarge_image([]), do: ["https://www.fillmurray.com/400/300"]
+  defp enlarge_image(list), do: Enum.map(&(Regex.replace(~r{square}, &1, "large")))
 
   defp prepared_term(term), do: Regex.replace(~r{\s}, term, "+")
 end

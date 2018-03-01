@@ -1,15 +1,15 @@
 <div class="story-img">
-  <img class="story-img-art" src="<%= @image %>" alt="<%= @story.search_request %>">
+  <img class="story-img-art" src='<%= @image %>' alt='<%= @story.search_request %>'>
 </div>
 
-<h2 style="color:black"><%= @story.search_request %></h2>
-
-<div class="adventure-story">
-  <p class="type-text"></p>
-</div>
+<h1 style="color:black"><%= @story.search_request %></h1>
 
 <div class="adventure-story">
   <%= @text %>
+</div>
+
+<div class="adventure-story">
+  <p class="type-text"></p>
 </div>
 
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
