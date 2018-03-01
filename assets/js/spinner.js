@@ -7,8 +7,8 @@ export var Load = {
         let spinner = document.getElementById('adventure-spinner');
         let elem = document.createElement("img");
         elem.setAttribute("src", "images/sm_loading.gif");
-        elem.setAttribute("height", "400");
-        elem.setAttribute("width", "49");
+        elem.setAttribute("height", "27");
+        elem.setAttribute("width", "100");
         elem.setAttribute("alt", "loading");
         spinner.appendChild(elem);
       }

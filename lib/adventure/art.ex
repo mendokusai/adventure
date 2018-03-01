@@ -61,7 +61,7 @@ defmodule Adventure.Art do
   end
 
   defp enlarge_image([]), do: ["https://www.fillmurray.com/400/300"]
-  defp enlarge_image(list), do: Enum.map(&(Regex.replace(~r{square}, &1, "large")))
+  defp enlarge_image(list), do: Enum.map(list, &(Regex.replace(~r{square}, &1, "large")))
 
   defp prepared_term(term), do: Regex.replace(~r{\s}, term, "+")
 end

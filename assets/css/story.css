@@ -58,6 +58,7 @@ header {
 #adventure-spinner {
   text-align: center;
   padding-right: 40px;
+  height: 27px;
 }
 
 .alert {
