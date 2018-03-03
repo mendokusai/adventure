@@ -24,6 +24,6 @@ defmodule Adventure.Markov.Chain do
     end)
   end
 
-  defp paragraph_length(), do: Enum.random(5..7)
+  defp paragraph_length(), do: Enum.random(2..3)
   defp paragraph_number(), do: Enum.random(2..4)
 end

@@ -2,15 +2,22 @@
   <img class="story-img-art" src='<%= @image %>' alt='<%= @story.search_request %>'>
 </div>
 
-<h1 style="color:black"><%= @story.search_request %></h1>
+<h1 id="title"><%= @story.search_request %></h1>
 
-<div class="adventure-story">
-  <%= @text %>
+<div class="adventure-story" id="story-text">
+  <p><%= @text %></p>
 </div>
 
 <div class="adventure-story">
+  <!-- choices here. -->
   <p class="type-text"></p>
 </div>
 
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-<script>require('js/app.js').App.typeit(`<%= @text %>`);</script>
+<script>
+  require('js/app.js').App.typeit(`<%= @text %>`);
+  var elem = document.getElementById('story-text');
+  var title = document.getElementById('title');
+  require('js/app.js').App.fade_in(elem);
+  require('js/app.js').App.random_color(title);
+</script>

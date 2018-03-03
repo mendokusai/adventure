@@ -22,10 +22,16 @@ import "phoenix_html"
 import { PlaceHolder } from "./story_index";
 import { StoryText } from "./story_typeit";
 import { Load } from "./spinner";
+import { Fader } from './fader.js';
+import { Hex } from './random_color.js';
 import Typed from 'typed.js';
+
 
 export var App = {
   typeit: StoryText.type,
   placeholder: PlaceHolder.type,
-  load: Load.spinner
+  load: Load.spinner,
+  fade_in: Fader.innie,
+  fade_out: Fader.outie,
+  random_color: Hex.color
 };

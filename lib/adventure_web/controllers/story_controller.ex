@@ -2,7 +2,7 @@ defmodule AdventureWeb.StoryController do
   use AdventureWeb, :controller
 
   def index(conn, _params) do
-    render conn, "index.html"
+    render conn, "index.html", home: home_link(conn)
   end
 
   def create(conn, %{"story" => %{"text_input" => request}}) when request != "" do
@@ -42,7 +42,7 @@ defmodule AdventureWeb.StoryController do
     page_text = Adventure.Markov.Chain.start(story.source_text)
       |> Adventure.Markov.Chain.page
     image = Adventure.Story.choose_image(story.images)
-    render conn, "show.html", story: story, text: page_text, image: image
+    render conn, "show.html", home: home_link(conn), story: story, text: page_text, image: image
   end
 
   def show(conn, _params) do
@@ -52,6 +52,8 @@ defmodule AdventureWeb.StoryController do
   defp render_index(conn, message \\ "Something weird happened") do
     conn
     |> put_flash(:error, message)
-    |> render("index.html")
+    |> render("index.html", home: home_link(conn))
   end
+
+  defp home_link(conn), do: "#{conn.scheme}://#{conn.host}:#{conn.port}/begin"
 end
